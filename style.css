@@ -1,11 +1,395 @@
 *{
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
-.navbar{
+/* ---------- Colour variables ---------- */
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --purple: #7c3aed;
+  --success: #16a34a;
+  --success-light: #dcfce7;
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --bg: #f1f5f9;
+  --card: #ffffff;
+}
+
+body{
+   margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+/** Header **/
+
+.navbar {
   background-color: #0F766E;
-  height: 80px;
+  min-height: 80px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding: 12px 30px;
+}
+
+.navbar a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.logo {
+  font-size: clamp(1.6rem, 5vw, 2.8rem);
+  font-weight: 700;
+  margin: 0;
+}
+
+#date {
+  margin: 0;
+  color: #CCFBF1;
+  font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+}
+
+/** Main **/
+
+.main{
+  flex: 1;
+  width: 100%;
+  height: auto;
+  padding: 20px;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+/* ---------- Summary banner ---------- */
+.summary {
+  background: linear-gradient(135deg, var(--primary), var(--purple));
+  color: #fff;
+  padding: 22px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
+}
+
+.summary-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.summary h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.progress {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.progress-bar {
+  height: 10px;
+  margin-top: 16px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0;
+  background: #fff;
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+/* ---------- Dose list and cards ---------- */
+.dose-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.dose-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--card);
+  padding: 16px;
+  border-radius: 18px;
+  border: 2px solid transparent;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dose-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.1);
+}
+
+/* Card after the dose is taken */
+.dose-card.is-taken {
+  background: var(--success-light);
+  border-color: #86efac;
+}
+
+/* Time badge (left side) */
+.card-time {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 78px;
+  padding: 10px;
+  background: #eff6ff;
+  color: var(--primary);
+  border-radius: 14px;
+}
+
+.is-taken .card-time {
+  background: #bbf7d0;
+  color: var(--success);
+}
+
+.time-value {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.time-period {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+/* Medicine details (middle) */
+.card-info {
+  flex: 1;
+}
+
+.card-info h3 {
+  margin: 0 0 4px;
+  font-size: 1.15rem;
+}
+
+.card-info p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* Buttons (right side) */
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-taken {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 12px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-taken:hover {
+  background: var(--primary-dark);
+}
+
+.is-taken .btn-taken {
+  background: var(--success);
+}
+
+.btn-delete {
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 12px;
+  background: #fee2e2;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-delete:hover {
+  background: #fecaca;
+}
+
+/* ---------- Empty state ---------- */
+.empty {
+  text-align: center;
+  padding: 36px 16px;
+  background: var(--card);
+  border: 2px dashed var(--border);
+  border-radius: 18px;
+  color: var(--muted);
+}
+
+.empty-icon {
+  font-size: 2.5rem;
+}
+
+/* ---------- Add medicine form ---------- */
+.add-form {
+  height: auto;
+  margin-top: 28px;
+  padding: 24px;
+  background: var(--card);
+  border-radius: 20px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+}
+
+.form-title {
+  margin: 0 0 18px;
+  font-size: 1.2rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+  flex: 1;
+}
+
+.field-row {
+  display: flex;
+  gap: 14px;
+}
+
+.field label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.field input {
+  padding: 13px 14px;
+  font-size: 1rem;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  background: #f8fafc;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.field input:focus {
+  border-color: var(--primary);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+}
+
+.btn-add {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--primary), var(--purple));
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-add:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.35);
+}
+
+
+/** footer **/
+
+.footer {
+  background-color: #0F766E;
+  color: #ffffff;
+  padding: 35px 50px 15px;
+  margin-top: 0; /* the main section already has bottom space */
+}
+
+.footer-container {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer-brand h2 {
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
+  margin: 0 0 8px;
+}
+
+.footer-brand p {
+  color: #CCFBF1;
+  margin: 0;
+}
+
+.footer-bottom {
+  margin-top: 25px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  color: #CCFBF1;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+}
+
+.footer-bottom p {
+  margin: 0;
+}
+
+
+/** media queries **/
+
+@media (max-width: 480px) {
+  .navbar {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 14px 16px;
+    gap: 4px;
+  }
+}
+
+@media (max-width: 520px) {
+  .dose-card {
+    flex-wrap: wrap;
+  }
+
+  .card-actions {
+    width: 100%;
+  }
+
+  .btn-taken {
+    flex: 1;
+  }
+
+  .field-row {
+    flex-direction: column;
+    gap: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 28px 16px 14px;
+  }
+
+  .footer-bottom {
+    font-size: 12px;
+  }
 }
