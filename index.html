@@ -9,12 +9,68 @@
 <body>
   <header>
     <div class="navbar">
-      <a href="index.html">MediTrack</a>
+      <div class = "logo"><a href="index.html">MediTrack</a></div>
       <p id="date"></p>
     </div>
   </header>
-  <main></main>
-  <footer></footer>
+
+ <main class="main">
+
+  <!-- Summary with progress bar -->
+  <section class="summary">
+    <div class="summary-top">
+      <h2>Today's Doses</h2>
+      <span class="progress" id="progress">0 of 0 done</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </section>
+
+  <!-- Dose cards (JavaScript fills this) -->
+  <section class="dose-list" id="doseList"></section>
+
+  <!-- Add medicine form -->
+  <form id="addForm" class="add-form">
+    <h3 class="form-title">Add a new medicine</h3>
+
+    <div class="field">
+      <label for="name">Medicine name</label>
+      <input type="text" id="name" placeholder="e.g. Metformin" autocomplete="off" required>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="dose">Dose</label>
+        <input type="text" id="dose" placeholder="e.g. 500 mg" autocomplete="off" required>
+      </div>
+
+      <div class="field">
+        <label for="time">Time</label>
+        <input type="time" id="time" required>
+      </div>
+    </div>
+
+    <button type="submit" class="btn-add">+ Add medicine</button>
+  </form>
+
+</main>
+
+<script src="app.js"></script>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h2>MediTrack</h2>
+        <p>Your simple medication tracking companion.</p>
+      </div>
+
+       <div class="footer-bottom">
+        <p>© 2026 MediTrack. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
   
 
   <script src="app.js"></script>
